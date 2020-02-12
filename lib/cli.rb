@@ -1,0 +1,204 @@
+require "pry"
+
+class CommandLineInterface
+  #   def run
+  #     greet
+  #     user_login
+  #     main_menu_options
+  #     list_of_top_ski_resorts
+  #   end
+
+  def greet
+    puts "Welcome to Ski Ticketer, the best resource for buying ski tickets in the world!"
+  end
+
+  def user_login #need a new create method. doesn't need to be deleted but it needs to be changed.
+    puts ""
+    puts "Please enter your name."
+    @username = gets.chomp
+    puts "Hi #{@username}! What would you like to do today?"
+    @user_id = User.find_or_create_by(name: @username).id
+    main_menu_options
+  end
+
+  def main_menu_options
+    puts ""
+    puts "1. View a list of the top 20 ski resorts in the world"
+    puts "2. Change your username"
+    puts "3. Cancel one of your tickets"
+    puts "4. Exit the program"
+    user_selection = gets.chomp
+    if user_selection == "1"
+      list_of_top_ski_resorts
+    elsif user_selection == "2"
+      update_name
+    elsif user_selection == "3"
+      delete_ticket
+    elsif user_selection == "4"
+      exit!
+    elsif user_selection != "1" && user_selection != "2" && user_selection != "3" && user_selection != "4"
+      puts "Invalid entry. Please enter a valid number."
+      main_menu_options
+    end
+  end
+
+  def list_of_top_ski_resorts
+    puts ""
+    puts ""
+    puts "Below are the top 20 ski resorts in the world!"
+    puts ""
+    SkiResort.all.each do |ski_resort|
+      puts ski_resort.name
+    end
+    puts ""
+    list_of_top_ski_resorts_menu_question
+  end
+
+  def list_of_top_ski_resorts_menu_question
+    puts "To go back to the main menu then press 1"
+    puts "To buy a ski ticket for one of these resorts press 2"
+    user_selection = gets.chomp
+    if user_selection == "1"
+      main_menu_options
+    elsif user_selection == "2"
+      purchase_ticket
+    elsif user_selection != "1" && user_selection != "2"
+      puts "Invalid entry. Please enter a valid number."
+    end
+  end
+
+  def purchase_ticket
+    new_ticket = Ticket.new
+    puts ""
+    puts ""
+    puts "Please enter the ID of the resort you would like to purchase a ticket to."
+    SkiResort.all.each do |ski_resort|
+      puts "Ski Resort ID: #{ski_resort.id}   Ski Resort Name: #{ski_resort.name}"
+    end
+    resort_id = gets.chomp
+    puts ""
+    puts ""
+    puts "Please enter your user ID number."
+    guest_id = gets.chomp
+    new_ticket.ski_resort_id = resort_id
+    new_ticket.user_id = guest_id
+    new_ticket.save
+    puts ""
+    puts ""
+    puts "Thank you for your purchase from Ski Ticketer! Below is your purchased ticket!"
+    puts ""
+    puts purchase_ticket_menu_question
+
+    #Ticket.where(user_id: guest_id).pluck("ski_resort_id")
+    #binding.pry
+  end
+
+  #   hikes_names_array = []
+  #   hikes_id_array = Favorite.where(user_id: user_id).pluck("hike_id").uniq
+  #   hikes_id_array.each do |hike|
+  #     hikes_names_array << Hike.find(hike).name
+  #     #binding.pry
+  #   end
+  #   puts hikes_names_array.join(", ")
+  #   puts ""
+  #   favorites_menu_question
+
+  #   def purchase_ticket #create
+  #     bought_ticket = []
+  #     puts ""
+  #     puts ""
+  #     puts "Please enter the below ID associated with the ski resort you'd like to buy a ticket for."
+  #     puts ""
+  #     SkiResort.all.each do |ski_resort|
+  #       puts "Ski Resort ID: #{ski_resort.id}   Ski Resort Name: #{ski_resort.name}"
+  #     end
+  #     puts ""
+  #     user_input = gets.chomp
+  #     bought_ticket << user_input
+  #     Ticket.create(user_id: @user_id, ski_resort_id: ski_resort.id)
+  #     #  Ticket.create(user_id: User.all.sample.id, ski_resort_id: SkiResort.all.sample.id, price: Faker::Number.within(range: 30..60), category: categories.sample)
+
+  #     purchase_ticket_menu_question #iterate through ski resort tickets to find the price.
+  #   end
+
+  def users_ticket
+    puts ""
+    puts "Thank you for your purchase from Ski Ticketer. Below is your ski ticket:"
+    puts ""
+  end
+
+  def delete_ticket
+    puts ""
+    puts ""
+    puts "Please enter your name to cancel your ticket."
+    inputted_name = gets.chomp.to_s
+    current_user = User.find_by(name: inputted_name)
+    #binding.pry
+    current_user.ski_resorts.each do |ski_resort|
+      puts ski_resort.name
+    end
+
+    "Please enter the name of the resort where you would like to cancel your ticket"
+    inputted_resort = gets.chomp.to_s
+    current_resort = SkiResort.find_by(name: inputted_resort)
+
+    ticket_to_delete = Ticket.where({ user_id: current_user.id, ski_resort_id: current_resort.id })
+    ticket_to_delete[0].destroy
+
+    puts "Your ticket to #{current_resort.name} has been canceled."
+
+    #find ticket where user id is equal to current user.id and where ski resort is equal to the resort
+    #@username.SkiResort each do |ticket|
+    #end
+    # delete_name = gets.chomp
+    # Ticket.ski_resort_id = delete_id
+    # Ticket.find(delete_id).user_id == @user_id
+    # Ticket.find(delete_id).destroy
+    # #binding.pry
+
+    #elsif(Shift.find(shift_id).user_id == @user.id)
+    #Shift.find(shift_id).destroy
+  end
+
+  def update_name
+    puts "Please enter your name to change your name."
+    input_name = gets.chomp
+    if User.exists?(name: input_name) == true
+      editing_user = User.find_by(name: input_name)
+
+      #if this user exists then we want to proceed and have them change their name
+
+      puts "What would you like to change your name to."
+      changed_name = gets.chomp
+      editing_user.name = changed_name
+      editing_user.save
+
+      puts "Your name is now #{editing_user.name}"
+    else
+      puts "That user doesn't exist in our records. Please check your spelling"
+    end
+  end
+
+  def purchase_ticket_menu_question
+    puts "To go back to the main menu press 1"
+    puts "To buy another ski ticket press 2"
+    puts "To change your username press 3"
+    puts "To cancel your ski ticket press 4"
+    user_selection = gets.chomp
+    if user_selection == "1"
+      main_menu_options
+    elsif user_selection == "2"
+      purchase ticket
+    elsif user_selection == "3"
+      update_ticket
+    elsif user_selection == "4"
+      delete_ticket
+    elsif user_selection != "1" && user_selection != "2" && user_selection != "3" && user_selection != "4"
+      puts "Invalid entry. Please enter a valid number."
+    end
+  end
+end
+
+#make price an attribute of the ski resort. then everyone who gets a ticket to that resort will pay the same price and can assign it as what the resort price is.
+#rollback database and change migration and get rid of price on ticket and add to resort. and then migrate and seed again.
+#change seed file until
