@@ -22,6 +22,23 @@ class CommandLineInterface
   end
 
   def main_menu_options
+    puts "
+                *
+                XX
+               MMMMM
+               //(00
+             .:.....
+           .::::::::: 
+          :: %%%%%% ::.
+         ::  ::::::  :::::::I)
+         (%  :::::          |
+         /   |  /______     |
+        /    |______   ))   |
+       /            / //    |
+      /            / //     |
+     /            / //      |
+    *            ZZZZ       *
+       _________ZZZZZZ_________//_//"
     puts ""
     puts "1. View a list of the top 20 ski resorts in the world and/or purchase a ticket."
     puts "2. Edit a user."
@@ -37,6 +54,7 @@ class CommandLineInterface
     elsif user_selection == "4"
       exit!
     elsif user_selection != "1" && user_selection != "2" && user_selection != "3" && user_selection != "4"
+      puts ""
       puts "Invalid entry. Please enter a valid number."
       main_menu_options
       #binding.pry
@@ -56,8 +74,8 @@ class CommandLineInterface
   end
 
   def list_of_top_ski_resorts_menu_question
-    puts "To go back to the main menu then press 1"
-    puts "To buy a ski ticket for one of these resorts press 2"
+    puts "To go back to the main menu then press 1."
+    puts "To buy a ski ticket for one of these resorts press 2."
     user_selection = gets.chomp
     if user_selection == "1"
       main_menu_options
@@ -69,7 +87,7 @@ class CommandLineInterface
   end
 
   def purchase_ticket
-    new_ticket = Ticket.new
+    new_ticket = Ticket.new #first created a new ticket... then assigned
     puts ""
     puts ""
     SkiResort.all.each do |ski_resort|
@@ -82,13 +100,14 @@ class CommandLineInterface
     if SkiResort.exists?(name: resort_name) == true
       ticket_resort = SkiResort.find_by(name: resort_name)
       new_ticket.ski_resort_id = ticket_resort.id
-      puts "Please enter your name"
+      puts "Please enter your name."
       ticket_name = gets.chomp.to_s
       if User.exists?(name: ticket_name) == true #these lines are comparing to see if the name is equal to the name the user entered above.
         ticket_user = User.find_by(name: ticket_name)
         new_ticket.user_id = ticket_user.id
         new_ticket.save
-        puts "Ticket successfully purchased!"
+        puts ""
+        puts "Ticket successfully purchased! We've brought you back to the main menu now."
         main_menu_options
       else
         puts "That user does not exist in our records. Please try again."
@@ -135,11 +154,11 @@ class CommandLineInterface
   #     purchase_ticket_menu_question #iterate through ski resort tickets to find the price.
   #   end
 
-  def users_ticket
-    puts ""
-    puts "Thank you for your purchase from Ski Ticketer. Below is your ski ticket:"
-    puts ""
-  end
+  #   def users_ticket
+  #     puts ""
+  #     puts "Thank you for your purchase from Ski Ticketer. Below is your ski ticket:"
+  #     puts ""
+  #   end
 
   def delete_ticket
     puts ""
@@ -161,8 +180,8 @@ class CommandLineInterface
 
       ticket_to_delete = Ticket.where({ user_id: current_user.id, ski_resort_id: current_resort.id })
       ticket_to_delete[0].destroy
-
-      puts "Your ticket to #{current_resort.name} has been cancelled."
+      puts ""
+      puts "Your ticket to #{current_resort.name} has been cancelled. We've brought you back to the main menu now."
       main_menu_options
     else
       puts "That user doesn't exist in our records. Please check your spelling and try again below."
@@ -189,9 +208,9 @@ class CommandLineInterface
       editing_user.name = changed_name
       editing_user.save
       puts ""
-      puts "Your name is now #{editing_user.name}"
+      puts "Your name is now #{editing_user.name}."
       puts ""
-      puts "To go back to the main menu press 1"
+      puts "To go back to the main menu press 1."
       user_selection = gets.chomp
       if user_selection == "1"
         main_menu_options
