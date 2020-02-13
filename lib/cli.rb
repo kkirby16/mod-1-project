@@ -12,7 +12,7 @@ class CommandLineInterface
     puts "Welcome to Ski Ticketer, the best resource for buying ski tickets in the world! What would you like to do today?"
   end
 
-  def user_login #need a new create method. doesn't need to be deleted but it needs to be changed.
+  def user_login
     puts ""
     puts "Please enter your name."
     @username = gets.chomp
@@ -23,15 +23,15 @@ class CommandLineInterface
 
   def main_menu_options
     puts ""
-    puts "1. View a list of the top 20 ski resorts in the world and/or purchase a ticket"
-    puts "2. Edit a user"
-    puts "3. Cancel a ticket"
-    puts "4. Exit the program"
+    puts "1. View a list of the top 20 ski resorts in the world and/or purchase a ticket."
+    puts "2. Edit a user."
+    puts "3. Cancel a ticket."
+    puts "4. Exit the program."
     user_selection = gets.chomp
     if user_selection == "1"
       list_of_top_ski_resorts
     elsif user_selection == "2"
-      update_name
+      edit_name
     elsif user_selection == "3"
       delete_ticket
     elsif user_selection == "4"
@@ -39,6 +39,7 @@ class CommandLineInterface
     elsif user_selection != "1" && user_selection != "2" && user_selection != "3" && user_selection != "4"
       puts "Invalid entry. Please enter a valid number."
       main_menu_options
+      #binding.pry
     end
   end
 
@@ -74,6 +75,7 @@ class CommandLineInterface
     SkiResort.all.each do |ski_resort|
       puts "Ski Resort Name: #{ski_resort.name}"
     end
+    puts ""
     puts "Please enter the name of the resort you would like to purchase a ticket to."
 
     resort_name = gets.chomp.to_s
@@ -86,18 +88,19 @@ class CommandLineInterface
         ticket_user = User.find_by(name: ticket_name)
         new_ticket.user_id = ticket_user.id
         new_ticket.save
-        puts "Ticket successfully purchased"
+        puts "Ticket successfully purchased!"
+        main_menu_options
       else
-        puts "That user does not exist in our records. Please try again"
+        puts "That user does not exist in our records. Please try again."
         purchase_ticket
       end
     else
-      puts "That resort does not exist in our records. Please try again"
+      puts "That resort does not exist in our records. Please try again."
       purchase_ticket
     end
   end
 
-  #once you know the user exists, find the user and assign their id to the ticket.f
+  #once you know the user exists, find the user and assign their id to the ticket.
 
   #once you know the ski resort exists, find t
 
@@ -114,85 +117,66 @@ class CommandLineInterface
   # puts ""
   # puts purchase_ticket_menu_question
 
-  #Ticket.where(user_id: guest_id).pluck("ski_resort_id")
-  #binding.pry
-end
+  #   def purchase_ticket #create
+  #     bought_ticket = []
+  #     puts ""
+  #     puts ""
+  #     puts "Please enter the below ID associated with the ski resort you'd like to buy a ticket for."
+  #     puts ""
+  #     SkiResort.all.each do |ski_resort|
+  #       puts "Ski Resort ID: #{ski_resort.id}   Ski Resort Name: #{ski_resort.name}"
+  #     end
+  #     puts ""
+  #     user_input = gets.chomp
+  #     bought_ticket << user_input
+  #     Ticket.create(user_id: @user_id, ski_resort_id: ski_resort.id)
+  #     #  Ticket.create(user_id: User.all.sample.id, ski_resort_id: SkiResort.all.sample.id, price: Faker::Number.within(range: 30..60), category: categories.sample)
 
-#   hikes_names_array = []
-#   hikes_id_array = Favorite.where(user_id: user_id).pluck("hike_id").uniq
-#   hikes_id_array.each do |hike|
-#     hikes_names_array << Hike.find(hike).name
-#     #binding.pry
-#   end
-#   puts hikes_names_array.join(", ")
-#   puts ""
-#   favorites_menu_question
+  #     purchase_ticket_menu_question #iterate through ski resort tickets to find the price.
+  #   end
 
-#   def purchase_ticket #create
-#     bought_ticket = []
-#     puts ""
-#     puts ""
-#     puts "Please enter the below ID associated with the ski resort you'd like to buy a ticket for."
-#     puts ""
-#     SkiResort.all.each do |ski_resort|
-#       puts "Ski Resort ID: #{ski_resort.id}   Ski Resort Name: #{ski_resort.name}"
-#     end
-#     puts ""
-#     user_input = gets.chomp
-#     bought_ticket << user_input
-#     Ticket.create(user_id: @user_id, ski_resort_id: ski_resort.id)
-#     #  Ticket.create(user_id: User.all.sample.id, ski_resort_id: SkiResort.all.sample.id, price: Faker::Number.within(range: 30..60), category: categories.sample)
-
-#     purchase_ticket_menu_question #iterate through ski resort tickets to find the price.
-#   end
-
-def users_ticket
-  puts ""
-  puts "Thank you for your purchase from Ski Ticketer. Below is your ski ticket:"
-  puts ""
-end
-
-def delete_ticket
-  puts ""
-  puts ""
-  puts "Please enter your name to cancel your ticket."
-  inputted_name = gets.chomp.to_s
-  if User.exists?(name: inputted_name) == true
-    current_user = User.find_by(name: inputted_name)
-    #binding.pry #should I have something in here that checks if the user deleting their ticket exists and says invalid user if not?
+  def users_ticket
     puts ""
-    current_user.ski_resorts.each do |ski_resort| #because user has many ski resorts, we can do .ski_resorts
-      puts ski_resort.name
-    end
-
-    puts "Please enter the name of the resort where you would like to cancel your ticket"
-    inputted_resort = gets.chomp.to_s
-    current_resort = SkiResort.find_by(name: inputted_resort)
-
-    ticket_to_delete = Ticket.where({ user_id: current_user.id, ski_resort_id: current_resort.id })
-    ticket_to_delete[0].destroy
-
-    puts "Your ticket to #{current_resort.name} has been canceled."
-  else
-    puts "That user doesn't exist in our records. Please check your spelling and try again below."
+    puts "Thank you for your purchase from Ski Ticketer. Below is your ski ticket:"
     puts ""
-    puts ""
-    delete_ticket
   end
 
+  def delete_ticket
+    puts ""
+    puts ""
+    puts "Please enter your name to cancel your ticket."
+    inputted_name = gets.chomp.to_s
+    if User.exists?(name: inputted_name) == true
+      current_user = User.find_by(name: inputted_name)
+      puts ""
+      puts "Below are the resorts you have a ticket for:"
+      current_user.ski_resorts.each do |ski_resort| #because user has many ski resorts, we can do .ski_resorts
+        puts ski_resort.name
+      end
+
+      puts ""
+      puts "Please enter the name of the resort where you would like to cancel your ticket."
+      inputted_resort = gets.chomp.to_s
+      current_resort = SkiResort.find_by(name: inputted_resort)
+
+      ticket_to_delete = Ticket.where({ user_id: current_user.id, ski_resort_id: current_resort.id })
+      ticket_to_delete[0].destroy
+
+      puts "Your ticket to #{current_resort.name} has been cancelled."
+      main_menu_options
+    else
+      puts "That user doesn't exist in our records. Please check your spelling and try again below."
+      puts ""
+      puts ""
+      delete_ticket
+    end
+  end
+
+  #maybe I should add a check here for if the resort exists or not.
+
   #find ticket where user id is equal to current user.id and where ski resort is equal to the resort
-  #@username.SkiResort each do |ticket|
-  #end
-  # delete_name = gets.chomp
-  # Ticket.ski_resort_id = delete_id
-  # Ticket.find(delete_id).user_id == @user_id
-  # Ticket.find(delete_id).destroy
-  # #binding.pry
 
-  #elsif(Shift.find(shift_id).user_id == @user.id)
-  #Shift.find(shift_id).destroy
-
-  def update_name
+  def edit_name
     puts "Please enter your name to change your name."
     input_name = gets.chomp
     if User.exists?(name: input_name) == true
@@ -219,26 +203,7 @@ def delete_ticket
       puts "That user doesn't exist in our records. Please check your spelling and try again below."
       puts ""
       puts ""
-      update_name
-    end
-  end
-
-  def purchase_ticket_menu_question
-    puts "To go back to the main menu press 1"
-    puts "To buy another ski ticket press 2"
-    puts "To change your username press 3"
-    puts "To cancel your ski ticket press 4"
-    user_selection = gets.chomp
-    if user_selection == "1"
-      main_menu_options
-    elsif user_selection == "2"
-      purchase_ticket
-    elsif user_selection == "3"
-      update_ticket
-    elsif user_selection == "4"
-      delete_ticket
-    elsif user_selection != "1" && user_selection != "2" && user_selection != "3" && user_selection != "4"
-      puts "Invalid entry. Please enter a valid number."
+      edit_name
     end
   end
 end
