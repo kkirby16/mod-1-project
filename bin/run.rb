@@ -5,4 +5,4 @@ puts "HELLO WORLD"
 
 cli = CommandLineInterface.new
 cli.greet
-cli.user_login
+cli.main_menu_options

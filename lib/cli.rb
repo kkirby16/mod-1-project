@@ -9,7 +9,7 @@ class CommandLineInterface
   #   end
 
   def greet
-    puts "Welcome to Ski Ticketer, the best resource for buying ski tickets in the world!"
+    puts "Welcome to Ski Ticketer, the best resource for buying ski tickets in the world! What would you like to do today?"
   end
 
   def user_login #need a new create method. doesn't need to be deleted but it needs to be changed.
@@ -18,14 +18,14 @@ class CommandLineInterface
     @username = gets.chomp
     puts "Hi #{@username}! What would you like to do today?"
     @user_id = User.find_or_create_by(name: @username).id
-    main_menu_options
+    main_menu_options #welcome to ski ticketer. What would you like to do today.
   end
 
   def main_menu_options
     puts ""
-    puts "1. View a list of the top 20 ski resorts in the world"
-    puts "2. Change your username"
-    puts "3. Cancel one of your tickets"
+    puts "1. View a list of the top 20 ski resorts in the world and/or purchase a ticket"
+    puts "2. Edit a user"
+    puts "3. Cancel a ticket"
     puts "4. Exit the program"
     user_selection = gets.chomp
     if user_selection == "1"
@@ -71,10 +71,10 @@ class CommandLineInterface
     new_ticket = Ticket.new
     puts ""
     puts ""
-    puts "Please enter the ID of the resort you would like to purchase a ticket to."
     SkiResort.all.each do |ski_resort|
-      puts "Ski Resort ID: #{ski_resort.id}   Ski Resort Name: #{ski_resort.name}"
+      puts "Ski Resort Name: #{ski_resort.name}"
     end
+    puts "Please enter the name of the resort you would like to purchase a ticket to."
 
     resort_name = gets.chomp.to_s
     if SkiResort.exists?(name: resort_name) == true
@@ -88,10 +88,12 @@ class CommandLineInterface
         new_ticket.save
         puts "Ticket successfully purchased"
       else
-        puts "That user does not exist in our records"
+        puts "That user does not exist in our records. Please try again"
+        purchase_ticket
       end
     else
-      puts "That resort does not exist in our records"
+      puts "That resort does not exist in our records. Please try again"
+      purchase_ticket
     end
   end
 
