@@ -159,13 +159,17 @@ class CommandLineInterface
       puts ""
       puts "Please enter the name of the resort where you would like to cancel your ticket."
       inputted_resort = gets.chomp.to_s
-      current_resort = SkiResort.find_by(name: inputted_resort)
+      if SkiResort.exists?(name: inputted_resort) == true
+        current_resort = SkiResort.find_by(name: inputted_resort)
 
-      ticket_to_delete = Ticket.where({ user_id: current_user.id, ski_resort_id: current_resort.id })
-      ticket_to_delete[0].destroy
-      puts ""
-      puts "Your ticket to #{current_resort.name} has been cancelled. We've brought you back to the main menu now."
-      main_menu_options
+        ticket_to_delete = Ticket.where({ user_id: current_user.id, ski_resort_id: current_resort.id })
+        ticket_to_delete[0].destroy
+        puts ""
+        puts "Your ticket to #{current_resort.name} has been cancelled. We've brought you back to the main menu now."
+        main_menu_options
+      else
+        puts "That resort doesn't exist in our records. Please check your spelling and try again below."
+      end
     else
       puts "That user doesn't exist in our records. Please check your spelling and try again below."
       puts ""
@@ -191,7 +195,7 @@ class CommandLineInterface
       editing_user.name = changed_name
       editing_user.save
       puts ""
-      puts "Your name is now #{editing_user.name}."
+      puts "Your name is now #{editing_user.name}"
       puts ""
       puts "To go back to the main menu press 1."
       user_selection = gets.chomp

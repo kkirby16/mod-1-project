@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 3) do
   create_table "tickets", force: :cascade do |t|
     t.integer  "ski_resort_id"
     t.integer  "user_id"
+    t.float    "price"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
   end
