@@ -10,6 +10,23 @@ class CommandLineInterface
 
   def greet
     puts "Welcome to Ski Ticketer, the best resource for buying ski tickets in the world! What would you like to do today?"
+    puts "
+                    *
+                    XX
+                   MMMMM
+                   //(00
+                .:.....
+               .::::::::: 
+              :: %%%%%% ::.
+            ::  ::::::  :::::::I)
+            (%  :::::          |
+           /   |  /______      |
+          /    |______   ))    |
+         /            / //     |
+        /            / //      |
+       /            / //       |
+      *            ZZZZ        *
+          _________ZZZZZZ_________//_//"
   end
 
   def user_login
@@ -22,23 +39,6 @@ class CommandLineInterface
   end
 
   def main_menu_options
-    puts "
-                *
-                XX
-               MMMMM
-               //(00
-             .:.....
-           .::::::::: 
-          :: %%%%%% ::.
-         ::  ::::::  :::::::I)
-         (%  :::::          |
-         /   |  /______     |
-        /    |______   ))   |
-       /            / //    |
-      /            / //     |
-     /            / //      |
-    *            ZZZZ       *
-       _________ZZZZZZ_________//_//"
     puts ""
     puts "1. View a list of the top 20 ski resorts in the world and/or purchase a ticket."
     puts "2. Edit a user."
@@ -168,7 +168,9 @@ class CommandLineInterface
         puts "Your ticket to #{current_resort.name} has been cancelled. We've brought you back to the main menu now."
         main_menu_options
       else
+        puts ""
         puts "That resort doesn't exist in our records. Please check your spelling and try again below."
+        delete_ticket
       end
     else
       puts "That user doesn't exist in our records. Please check your spelling and try again below."
