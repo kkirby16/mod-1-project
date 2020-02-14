@@ -9,7 +9,6 @@ Next, run rake db:migrate and rake db:seed to populate the database.
 
 Then, run ruby bin/run.rb in the terminal to begin the program. 
 
-
 How to use the app:
 
 
@@ -42,6 +41,8 @@ Micky, Eugene, Stephen, Joy, Tom, Christina, Pete, Richard, Ben or Mike
      -Given a ski resort that the user has a ticket for is entered in, the user's ticket to that ski resort will be cancelled and the user will then be brought back to the main menu.
   4. Exit the program. 
      -Entered 4 on the main menu will exit you out of the program.
+     
+Video of how to use my app: https://youtu.be/utlNn8Y6i6k 
      
 This project is liscensed under: https://www.gnu.org/licenses/gpl-3.0.en.html
 
