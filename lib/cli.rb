@@ -9,6 +9,7 @@ class CommandLineInterface
   #   end"
 
   def greet
+    puts ""
     puts "Welcome to Ski Ticketer, the best resource for buying ski tickets in the world! What would you like to do today?"
     puts "
                     *
@@ -87,7 +88,7 @@ class CommandLineInterface
   end
 
   def purchase_ticket
-    new_ticket = Ticket.new #first created a new ticket... then assigned
+    new_ticket = Ticket.new
     puts ""
     puts ""
     SkiResort.all.each do |ski_resort|
@@ -102,7 +103,7 @@ class CommandLineInterface
       new_ticket.ski_resort_id = ticket_resort.id
       puts "Please enter your name."
       ticket_name = gets.chomp.to_s
-      if User.exists?(name: ticket_name) == true #these lines are comparing to see if the name is equal to the name the user entered above.
+      if User.exists?(name: ticket_name) == true
         ticket_user = User.find_by(name: ticket_name)
         new_ticket.user_id = ticket_user.id
         new_ticket.save
