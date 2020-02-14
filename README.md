@@ -1,7 +1,7 @@
 To install and run this program:
 
 
-Fork and clone the repository at this link: https://github.com/kkirby16/mod-1-project/tree/master/lib 
+Fork and clone the repository at this link: https://github.com/kkirby16/mod-1-project
 
 Open up the terminal in this program and run bundle install in it.
 
