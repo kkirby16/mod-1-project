@@ -121,8 +121,6 @@ class CommandLineInterface
 
   #once you know the user exists, find the user and assign their id to the ticket.
 
-  #once you know the ski resort exists, find t
-
   # puts ""
   # puts ""
   # puts "Please enter your user ID number."
@@ -135,21 +133,6 @@ class CommandLineInterface
   # puts "Thank you for your purchase from Ski Ticketer!"
   # puts ""
   # puts purchase_ticket_menu_question
-
-  #   def purchase_ticket #create
-  #     bought_ticket = []
-  #     puts ""
-  #     puts ""
-  #     puts "Please enter the below ID associated with the ski resort you'd like to buy a ticket for."
-  #     puts ""
-  #     SkiResort.all.each do |ski_resort|
-  #       puts "Ski Resort ID: #{ski_resort.id}   Ski Resort Name: #{ski_resort.name}"
-  #     end
-  #     puts ""
-  #     user_input = gets.chomp
-  #     bought_ticket << user_input
-  #     Ticket.create(user_id: @user_id, ski_resort_id: ski_resort.id)
-  #     #  Ticket.create(user_id: User.all.sample.id, ski_resort_id: SkiResort.all.sample.id, price: Faker::Number.within(range: 30..60), category: categories.sample)
 
   #     purchase_ticket_menu_question #iterate through ski resort tickets to find the price.
   #   end
@@ -229,4 +212,3 @@ end
 
 #make price an attribute of the ski resort. then everyone who gets a ticket to that resort will pay the same price and can assign it as what the resort price is.
 #rollback database and change migration and get rid of price on ticket and add to resort. and then migrate and seed again.
-#change seed file until

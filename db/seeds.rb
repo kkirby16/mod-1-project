@@ -1,13 +1,13 @@
 require "faker"
 
 10.times do
-  User.create(name: Faker::Name.name)
+  User.create(name: Faker::Name.first_name)
 end
 
 puts "successfully seeded users!"
 
 20.times do
-  SkiResort.create(name: Faker::Games::ElderScrolls.city)
+  SkiResort.create(name: Faker::Games::ElderScrolls.unique.city)
 end
 
 puts "successfully seeded Ski Resorts!"
