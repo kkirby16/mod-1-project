@@ -20,6 +20,12 @@ Ski Ticketer is an app I created that give users the ability to:
  -Edit their name. 
  
 First, you are brought to a main menu with 4 options:
+
+*This app is buit so that you have to use one of the below fake user's names of your choice when you are prompted to enter your name:
+
+Micky, Eugene, Stephen, Joy, Tom, Christina, Pete, Richard, Ben or Mike
+
+
   1. View a list of the top 20 ski resorts in the world and/or purchase a ticket.
      -If 1 is entered here you see a list with fake names representing 20 of the top ski resorts in the world. 
      -You can then press 1 to go back to the main menu if you wish. 
