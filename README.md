@@ -36,5 +36,7 @@ First, you are brought to a main menu with 4 options:
      -Given a ski resort that the user has a ticket for is entered in, the user's ticket to that ski resort will be cancelled and the user will then be brought back to the main menu.
   4. Exit the program. 
      -Entered 4 on the main menu will exit you out of the program.
+     
+This project is liscensed under: https://www.gnu.org/licenses/gpl-3.0.en.html
 
 
