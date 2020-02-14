@@ -6,7 +6,7 @@ class CommandLineInterface
   #     user_login
   #     main_menu_options
   #     list_of_top_ski_resorts
-  #   end
+  #   end"
 
   def greet
     puts "Welcome to Ski Ticketer, the best resource for buying ski tickets in the world! What would you like to do today?"
