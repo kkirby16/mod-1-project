@@ -21,7 +21,7 @@ Ski Ticketer is an app I created that give users the ability to:
 
 *This app is buit so that you have to use one of the below fake user's names of your choice when you are prompted to enter your name:
 
-Micky, Eugene, Stephen, Joy, Tom, Christina, Pete, Richard, Ben or Mike
+Micky, Eugene, Stephen, Joy, Tom, Christina, Peter, Richard, Ben, or Mike
 
 First you are brought to a main menu with 4 options: 
 
