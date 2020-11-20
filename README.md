@@ -15,8 +15,11 @@ Then, run ruby bin/run.rb in the terminal to begin the program.
 Ski Ticketer is an app I created that give users the ability to: 
 
 -View a list of top ski resorts in the world.
+
 -Purchase a ski ticket to a ski resort.
+
 -Cancel a ski ticket of theirs. 
+
 -Edit their name.
 
 *This app is buit so that you have to use one of the below fake user's names of your choice when you are prompted to enter your name:
