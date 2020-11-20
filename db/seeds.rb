@@ -1,8 +1,15 @@
 require "faker"
 
-10.times do
-  User.create(name: Faker::Name.first_name)
-end
+User.create(name: "Micky")
+User.create(name: "Eugene")
+User.create(name: "Stephen")
+User.create(name: "Joy")
+User.create(name: "Tom")
+User.create(name: "Christina")
+User.create(name: "Peter")
+User.create(name: "Richard")
+User.create(name: "Ben")
+User.create(name: "Mike")
 
 puts "successfully seeded users!"
 
