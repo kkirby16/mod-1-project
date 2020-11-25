@@ -60,8 +60,4 @@ First you are brought to a main menu with 4 options:
 
 Video of how to use my app: https://youtu.be/utlNn8Y6i6k
 
-<<<<<<< HEAD
 This project is licensed under: https://www.gnu.org/licenses/gpl-3.0.en.html
-=======
-This project is liscensed under: https://www.gnu.org/licenses/gpl-3.0.en.html
->>>>>>> cfeca84ac933bd96066e554af8894d5ef1bdf73b
