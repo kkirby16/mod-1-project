@@ -58,6 +58,6 @@ First you are brought to a main menu with 4 options:
   
     -Entering 4 on the main menu will exit you out of the program. 
 
-Video of how to use my app: https://youtu.be/utlNn8Y6i6k
+Video of how to use my app: https://www.youtube.com/watch?v=7IuCnJ_GVgA
 
 This project is licensed under: https://www.gnu.org/licenses/gpl-3.0.en.html
